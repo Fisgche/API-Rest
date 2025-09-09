@@ -1,9 +1,15 @@
 import http from 'http';
 import express from 'express';
+import bodyParser from 'body-parser';
+
 import apiV1Router from './api-v1/api-router.js';
+
 
 const app = express();
 const port = 5500;
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 
 app.use('/api/v1', apiV1Router); // Assuming apiV1Router is defined elsewhere
 app.use('/', (req, res) => res.send('----Api Contatos----'));

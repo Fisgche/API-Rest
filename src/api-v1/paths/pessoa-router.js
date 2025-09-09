@@ -5,6 +5,7 @@ const pessoaRouter = express.Router();
 
 //pessoaRouter.use('/', (req, res, next) => res.send('ENDPOINT PESSOA'));
 pessoaRouter.get('/', ListaPessoas);
+pessoaRouter.post('/', InserePessoas);
 
 function ListaPessoas(req, res, next) {
   pessoaModel.Lista({}, (err, lista) => {
@@ -16,6 +17,19 @@ function ListaPessoas(req, res, next) {
     }
 })
       
+}
+
+
+function InserePessoas(req, res, next) {
+    pessoaModel.Insere(req.body,(err, objNovo) => {
+
+        if (!err) {
+        res.json(objNovo);
+        }
+        else {
+            res.status(400).send(err.message);  
+        }
+     })
 }
 
 export default pessoaRouter;
